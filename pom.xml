@@ -20,6 +20,13 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>rabin</groupId>
+      <artifactId>rabin</artifactId>
+      <version>1.0.1</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/lib/rabin-1.0.1.jar</systemPath>
+    </dependency>
   </dependencies>
 
   <build>

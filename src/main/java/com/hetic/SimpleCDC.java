@@ -7,6 +7,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+// import org.apache.commons.math3.polynomial.Polynomial;
+
+import rabin.rabinfingerprint.RabinFingerprintLong;
+
 public class SimpleCDC {
     private static final int MIN_CHUNK_SIZE = 64;
     private static final int MAX_CHUNK_SIZE = 128;
@@ -19,6 +23,8 @@ public class SimpleCDC {
     public static List<byte[]> chunkFile(Path filePath) throws IOException {
         byte[] data = Files.readAllBytes(filePath);
         List<byte[]> chunks = new ArrayList<>();
+        // Polynomial polynomial = Polynomial.createIrreducible(53);
+        RabinFingerprintLong rabin = new RabinFingerprintLong();
         
         int lastCut = 0;
         int fingerprint = 0;
