@@ -7,9 +7,9 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 public class Reconstructor {
-    public static void reconstructFile(Path outputPath) {
+    public static void reconstructFile(Path outputPath, int fileId) {
         try {
-            List<byte[]> chunks = DatabaseManager.getAllChunksOrdered();
+            List<byte[]> chunks = DatabaseManager.getAllChunksOrdered(fileId);
             Files.write(outputPath, new byte[0], StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
 
             for (byte[] chunk : chunks) {

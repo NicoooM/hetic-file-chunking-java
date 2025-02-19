@@ -30,7 +30,7 @@ public class SimpleCDC {
         }
     }
 
-    public static List<Chunk> chunkFile(byte[] fileBytes, String name) throws IOException, NoSuchAlgorithmException {
+    public static int chunkFile(byte[] fileBytes, String name) throws IOException, NoSuchAlgorithmException {
         List<Chunk> chunks = new ArrayList<>();
 
         Polynomial polynomial = Polynomial.createIrreducible(53);
@@ -79,7 +79,7 @@ public class SimpleCDC {
             }
         }
 
-        return chunks;
+        return fileId;
     }
 
     private static String computeHash(byte[] data) throws NoSuchAlgorithmException {

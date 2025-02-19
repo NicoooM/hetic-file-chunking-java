@@ -83,12 +83,16 @@ public class DatabaseManager {
         }
     }
 
-    public static List<byte[]> getAllChunksOrdered() {
+    public static List<byte[]> getAllChunksOrdered(int fileId) {
         List<byte[]> chunks = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL);
-             PreparedStatement stmt = conn.prepareStatement("SELECT data FROM chunks ORDER BY id ASC");
-             ResultSet rs = stmt.executeQuery()) {
-
+        PreparedStatement stmt = conn.prepareStatement("SELECT chunks.data FROM chunks " +
+                                                        "JOIN files_chunks ON chunks.id = files_chunks.chunk_id " +
+                                                        "WHERE files_chunks.file_id = ? " +
+                                                        "ORDER BY files_chunks.chunk_id")) {
+            stmt.setInt(1, fileId);
+            stmt.execute();
+            ResultSet rs = stmt.getResultSet();
             while (rs.next()) {
                 byte[] compressedData = rs.getBytes("data");
                 chunks.add(decompressChunk(compressedData));
@@ -114,6 +118,6 @@ public class DatabaseManager {
     }
 
     private static byte[] decompressChunk(byte[] compressedData) {
-        return Zstd.decompress(compressedData, compressedData.length * 5); // Adjust size if needed
+        return Zstd.decompress(compressedData, compressedData.length * 2);
     }
 }
