@@ -1,16 +1,37 @@
 package com.hetic;
 
-import java.net.URL;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 public class FileReader {
-    public static Object load(String arg) {
-        URL resourceUrl = App.class.getClassLoader().getResource(arg);
 
-        if (resourceUrl != null) {
-            return resourceUrl.getPath();
-        } else {
-            System.out.println("File not found in resources");
-            return new Exception();
+    // Returns a path string, either from the file system or from the JAR
+    public static Object load(String fileName) {
+        try {
+            // Try loading as a resource in JAR (for packaged mode)
+            InputStream is = FileReader.class.getClassLoader().getResourceAsStream(fileName);
+            if (is != null) {
+                // Handle the case when the file is inside the JAR file
+                Path tempFile = Files.createTempFile("temp_", ".txt");
+                Files.copy(is, tempFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+                return tempFile.toString();  // Return the path to the temporary file
+            } else {
+                // If the resource wasn't found in the JAR, assume it's a file path on the local file system
+                Path filePath = Paths.get(fileName);
+                if (Files.exists(filePath)) {
+                    return filePath.toString();
+                } else {
+                    throw new IOException("File not found: " + fileName);
+                }
+            }
+        } catch (IOException e) {
+            return e;  // Return the exception to handle it in App
         }
     }
 }
