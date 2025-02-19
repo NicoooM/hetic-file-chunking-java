@@ -12,13 +12,13 @@ import java.nio.file.Paths;
 public class FileReader {
 
     // Returns a path string, either from the file system or from the JAR
-    public static Object load(String fileName) {
+    public static Object load(String fileName, String extension) {
         try {
             // Try loading as a resource in JAR (for packaged mode)
             InputStream is = FileReader.class.getClassLoader().getResourceAsStream(fileName);
             if (is != null) {
                 // Handle the case when the file is inside the JAR file
-                Path tempFile = Files.createTempFile("temp_", ".txt");
+                Path tempFile = Files.createTempFile("temp_", extension);
                 Files.copy(is, tempFile, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
                 return tempFile.toString();  // Return the path to the temporary file
             } else {
