@@ -12,11 +12,12 @@ import org.rabinfingerprint.fingerprint.RabinFingerprintLongWindowed;
 import org.rabinfingerprint.polynomial.Polynomial;
 
 public class SimpleCDC {
-    public static final int MIN_CHUNK_SIZE = 64;
-    public static final int MAX_CHUNK_SIZE = 128;
-    private static final int WINDOW_SIZE = 48;
-    private static final int MASK = 0x0FFF;
-    private static final int TARGET = 0x000;
+    // Augmentation des tailles de chunks pour mieux gérer les fichiers binaires
+    public static final int MIN_CHUNK_SIZE = 2048;  // 2KB minimum
+    public static final int MAX_CHUNK_SIZE = 8192;  // 8KB maximum
+    private static final int WINDOW_SIZE = 64;      // Fenêtre plus grande
+    private static final int MASK = 0x1FFF;         // Masque plus grand pour une meilleure distribution
+    private static final int TARGET = 0x0FFF;       // Nouvelle valeur cible
 
     public static class Chunk {
         public final byte[] data;
