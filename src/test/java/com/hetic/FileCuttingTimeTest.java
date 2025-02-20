@@ -1,11 +1,13 @@
 package com.hetic;
 
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 
-public class FileCuttingTimeTest extends TestCase {
+public class FileCuttingTimeTest {
     
+    @Test
     public void testFileCuttingPerformance() {
         try {
             DatabaseManager.initializeDatabase();
@@ -23,7 +25,7 @@ public class FileCuttingTimeTest extends TestCase {
             System.out.println("[FileCuttingTime Test] - Time: " + duration + " ms");
             System.out.println("[FileCuttingTime Test] - Size: " + fileBytes.length + " bytes");
             
-            assertTrue("[FileCuttingTime Test] - Success!", fileId > 0);
+            assertTrue(fileId > 0, "[FileCuttingTime Test] - Success!");
             
         } catch (Exception e) {
             fail("[FileCuttingTime Test] - Error: " + e.getMessage());
