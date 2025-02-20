@@ -12,8 +12,8 @@ import org.rabinfingerprint.fingerprint.RabinFingerprintLongWindowed;
 import org.rabinfingerprint.polynomial.Polynomial;
 
 public class SimpleCDC {
-    private static final int MIN_CHUNK_SIZE = 64;
-    private static final int MAX_CHUNK_SIZE = 128;
+    public static final int MIN_CHUNK_SIZE = 64;
+    public static final int MAX_CHUNK_SIZE = 128;
     private static final int WINDOW_SIZE = 48;
     private static final int MASK = 0x0FFF;
     private static final int TARGET = 0x000;
@@ -82,7 +82,7 @@ public class SimpleCDC {
         return fileId;
     }
 
-    private static String computeHash(byte[] data) throws NoSuchAlgorithmException {
+    public static String computeHash(byte[] data) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hashBytes = digest.digest(data);
         StringBuilder hexString = new StringBuilder();
@@ -92,7 +92,7 @@ public class SimpleCDC {
         return hexString.toString();
     }
 
-    private static byte[] compressChunk(byte[] data) {
+    public static byte[] compressChunk(byte[] data) {
         return Zstd.compress(data);
     }
 }
