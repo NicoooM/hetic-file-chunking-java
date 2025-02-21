@@ -5,9 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 import com.github.luben.zstd.Zstd;
 
+// Gestion SQLite pour stockage chunks dédupliqués
 public class DatabaseManager {
     private static final String DB_URL = "jdbc:sqlite:chunks.db";
 
+    // Init schema DB: files, chunks et mapping
     public static void initializeDatabase() {
     try (Connection conn = DriverManager.getConnection(DB_URL);
          Statement stmt = conn.createStatement()) {
@@ -32,6 +34,7 @@ public class DatabaseManager {
     }
 }
 
+    // Vérifie existence chunk par hash
     public static boolean chunkExists(String hash) {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement("SELECT COUNT(*) FROM chunks WHERE hash = ?")) {
@@ -44,6 +47,7 @@ public class DatabaseManager {
         }
     }
 
+    // Enregistre métadonnées fichier
     public static int storeFile(String name) {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO files (name) VALUES (?)")) {
@@ -56,6 +60,7 @@ public class DatabaseManager {
         }
     }
 
+    // Stocke nouveau chunk si non existant
     public static int storeChunk(String hash, byte[] compressedData) {
         if (!chunkExists(hash)) {
             try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -72,6 +77,7 @@ public class DatabaseManager {
         return -1;
     }
 
+    // Associe chunk à fichier
     public static void storeFileChunk(int fileId, int chunkId) {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement("INSERT INTO files_chunks (file_id, chunk_id) VALUES (?, ?)")) {
@@ -83,6 +89,7 @@ public class DatabaseManager {
         }
     }
 
+    // Récupère chunks ordonnés d'un fichier
     public static List<byte[]> getAllChunksOrdered(int fileId) {
         List<byte[]> chunks = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(DB_URL);
@@ -103,6 +110,7 @@ public class DatabaseManager {
         return chunks;
     }
 
+    // Retrouve ID chunk par hash
     public static int getChunkIdByHash(String hash) {
         try (Connection conn = DriverManager.getConnection(DB_URL);
              PreparedStatement stmt = conn.prepareStatement("SELECT id FROM chunks WHERE hash = ?")) {
@@ -117,6 +125,7 @@ public class DatabaseManager {
         return -1;
     }
 
+    // Décompression Zstd des chunks
     private static byte[] decompressChunk(byte[] compressedData) {
         return Zstd.decompress(compressedData, compressedData.length * 2);
     }
