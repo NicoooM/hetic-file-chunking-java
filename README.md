@@ -1,5 +1,13 @@
 # Déduplication de Fichiers avec CDC
 
+## 👤️ Authors 👤
+
+- Nicolas Marsan ([@NicoooM](https://github.com/NicoooM))<br />
+- Benoît Favrie ([@benoitfvr](https://github.com/benoitfvr))<br />
+- Julian Laballe ([@Triips-TheCoder](https://github.com/Triips-TheCoder))<br />
+- Lucas ([@lucasboucher](https://github.com/lucasboucher))<br />
+- Paul Mazeau ([@PaulMazeau](https://github.com/PaulMazeau))
+
 ## Description
 Ce projet implémente un système de déduplication de fichiers utilisant la technique du Content-Defined Chunking (CDC). Il permet de stocker efficacement les fichiers en découpant les données en morceaux uniques et en évitant les duplications.
 
@@ -23,7 +31,7 @@ git clone https://github.com/NicoooM/hetic-file-chunking-java.git
 
 ## Aller dans le dossier
 ```bash
-cd files-java
+cd hetic-file-chunking-java
 ```
 
 ## Installer les dépendances
