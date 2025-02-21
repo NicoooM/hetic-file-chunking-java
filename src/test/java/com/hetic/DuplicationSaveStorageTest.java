@@ -9,8 +9,8 @@ public class DuplicationSaveStorageTest {
 
     @Test
     public void testStorageSavingsWithDuplicateFiles() throws Exception {
-        String originalFile = (String) FileReader.load("static/naza.jpeg", ".jpeg");
-        String duplicateFile = (String) FileReader.load("static/naza_duplication.jpeg", ".jpeg");
+        String originalFile = (String) FileReader.load("static/nasa.jpeg", ".jpeg");
+        String duplicateFile = (String) FileReader.load("static/nasa_duplication.jpeg", ".jpeg");
 
         long originalSize = Files.size(Paths.get(originalFile));
         long duplicateSize = Files.size(Paths.get(duplicateFile));

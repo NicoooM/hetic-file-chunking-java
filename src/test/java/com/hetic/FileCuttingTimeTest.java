@@ -12,7 +12,7 @@ public class FileCuttingTimeTest {
         try {
             DatabaseManager.initializeDatabase();
             
-            String path = (String) FileReader.load("static/naza.jpeg", ".jpeg");
+            String path = (String) FileReader.load("static/nasa.jpeg", ".jpeg");
             byte[] fileBytes = Files.readAllBytes(Paths.get(path));
             
             long startTime = System.currentTimeMillis();

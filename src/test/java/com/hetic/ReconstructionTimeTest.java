@@ -9,7 +9,7 @@ public class ReconstructionTimeTest {
     public void testReconstructionTime() throws Exception {
         DatabaseManager.initializeDatabase();
 
-        String path = (String) FileReader.load("static/naza.jpeg", ".jpeg");
+        String path = (String) FileReader.load("static/nasa.jpeg", ".jpeg");
         byte[] fileBytes = Files.readAllBytes(Paths.get(path));
         
         System.out.println("[ReconstructionTime Test] Original size: " + fileBytes.length + " bytes");
@@ -20,7 +20,7 @@ public class ReconstructionTimeTest {
         
         System.out.println("[ReconstructionTime Test] Cutting time: " + chunkingTime + " ms");
 
-        Path outputPath = Paths.get("naza_reconstructed.jpeg");
+        Path outputPath = Paths.get("nasa_reconstructed.jpeg");
         long startReconstruction = System.currentTimeMillis();
         Reconstructor.reconstructFile(outputPath, fileId);
         long reconstructionTime = System.currentTimeMillis() - startReconstruction;

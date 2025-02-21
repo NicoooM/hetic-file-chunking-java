@@ -21,7 +21,7 @@ public class DifferentFilesTest {
 
     @Test
     void testImageJpeg() throws Exception {
-        testFile("naza", ".jpeg");
+        testFile("nasa", ".jpeg");
     }
 
     @Test

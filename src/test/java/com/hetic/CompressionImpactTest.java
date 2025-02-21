@@ -9,7 +9,7 @@ public class CompressionImpactTest {
 
     @Test
     public void testCompressionPerformance() throws IOException {
-        String path = (String) FileReader.load("static/naza.jpeg", ".jpeg");
+        String path = (String) FileReader.load("static/nasa.jpeg", ".jpeg");
         byte[] fileBytes = Files.readAllBytes(Paths.get(path));
         
         long startTimeNoCompression = System.currentTimeMillis();
