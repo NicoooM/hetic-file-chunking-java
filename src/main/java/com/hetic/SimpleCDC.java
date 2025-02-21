@@ -11,6 +11,7 @@ import java.util.List;
 import org.rabinfingerprint.fingerprint.RabinFingerprintLongWindowed;
 import org.rabinfingerprint.polynomial.Polynomial;
 
+// Implémentation de Content-Defined Chunking (CDC) avec l'algorithme de Rabin
 public class SimpleCDC {
     public static final int MIN_CHUNK_SIZE = 2048;
     public static final int MAX_CHUNK_SIZE = 8192;
@@ -18,6 +19,7 @@ public class SimpleCDC {
     private static final int MASK = 0x3FFF;
     private static final int TARGET = 0x1FFF;
 
+    // Classe interne représentant un chunk avec ses données et métadonnées
     public static class Chunk {
         public final byte[] data;
         public final String hash;
@@ -30,6 +32,7 @@ public class SimpleCDC {
         }
     }
 
+    // Découpe un fichier en chunks en utilisant l'algorithme CDC de Rabin
     public static int chunkFile(byte[] fileBytes, String name) throws IOException, NoSuchAlgorithmException {
         List<Chunk> chunks = new ArrayList<>();
 
@@ -82,6 +85,7 @@ public class SimpleCDC {
         return fileId;
     }
 
+    // Calcule le hash SHA-256 d'un chunk
     public static String computeHash(byte[] data) throws NoSuchAlgorithmException {
         MessageDigest digest = MessageDigest.getInstance("SHA-256");
         byte[] hashBytes = digest.digest(data);
@@ -92,6 +96,7 @@ public class SimpleCDC {
         return hexString.toString();
     }
 
+    // Compresse un chunk avec l'algorithme Zstd
     public static byte[] compressChunk(byte[] data) {
         return Zstd.compress(data);
     }
