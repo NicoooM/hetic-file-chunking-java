@@ -127,6 +127,6 @@ public class DatabaseManager {
 
     // Décompression Zstd des chunks
     private static byte[] decompressChunk(byte[] compressedData) {
-        return Zstd.decompress(compressedData, compressedData.length * 2);
+        return Zstd.decompress(compressedData, compressedData.length * 5);
     }
 }
